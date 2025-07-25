@@ -1,7 +1,7 @@
 package alerting
 
 import (
-	"github.com/alex/go-shared-libs/event"
+	"github.com/avilikof/go-shared-libs/event"
 	"time"
 )
 

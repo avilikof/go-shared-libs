@@ -26,4 +26,9 @@ import "github.com/avilikof/go-shared-libs/logger"
 make test              # Run all tests
 make test-alerts       # Test specific package
 make lint              # Run linter
+# Check if ready for release
+make release-check
+
+# Create and push your first version tag
+make tag VERSION=v1.0.0
 ```

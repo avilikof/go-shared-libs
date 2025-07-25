@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/alex/go-shared-libs/alerts"
+	"github.com/avilikof/go-shared-libs/alerts"
 )
 
 type AlertGenerator struct {

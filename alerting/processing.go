@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/alex/go-shared-libs/alerts"
+	"github.com/avilikof/go-shared-libs/alerts"
 )
 
 const StorageTopic = "alert.store"

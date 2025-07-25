@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	natsdriver "github.com/alex/go-shared-libs/nats"
+	natsdriver "github.com/avilikof/go-shared-libs/nats"
 
 	"github.com/nats-io/nats.go"
 )
