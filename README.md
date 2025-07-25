@@ -11,3 +11,4 @@ Shared Go libraries extracted from monorepo.
 - `nats/` - 
 - `redis/` - 
 - `redpanda/` - 
+- `alerting/` - Alert processing and stream handling utilities
