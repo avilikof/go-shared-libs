@@ -8,21 +8,21 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-const (
-	NATS_URL = "NATS_URL"
-)
-
+// StreamHandler provides methods for handling message streaming operations
+// including publishing and subscribing to topics through a NATS connection.
 type StreamHandler struct {
 	natsDriver *natsdriver.NatsConnection
 }
 
-func NewStreamHandler() (*StreamHandler, error) {
-	//confManager, err := cfgmanager.NewConfigManager([]string{NATS_URL})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//defer confManager.ClearVars()
-	natsUrl := os.Getenv(NATS_URL)
+// NewStreamHandler creates and initializes a new StreamHandler instance.
+// It establishes a connection to the NATS server using the provided URL environment variable.
+// If the environment variable is not set, it falls back to the default NATS URL.
+// Returns an error if the connection to NATS server fails.
+func NewStreamHandler(url string) (*StreamHandler, error) {
+	natsUrl := os.Getenv(url)
+	if natsUrl == "" {
+		natsUrl = nats.DefaultURL
+	}
 
 	natsConnection, err := natsdriver.NewNatsConnection(natsUrl)
 	if err != nil {
@@ -33,6 +33,9 @@ func NewStreamHandler() (*StreamHandler, error) {
 	}, nil
 }
 
+// Subscribe sets up a subscription to receive messages from a specified topic.
+// Messages received from the topic are forwarded to the provided channel.
+// Returns an error if the subscription setup fails.
 func (sh *StreamHandler) Subscribe(topic string, alertChan chan []byte) error {
 	pubSub := natsdriver.NewPubSub(sh.natsDriver)
 	err := pubSub.Subscribe(topic, func(msg *nats.Msg) {
@@ -44,6 +47,8 @@ func (sh *StreamHandler) Subscribe(topic string, alertChan chan []byte) error {
 	return nil
 }
 
+// Publish sends data to a specified topic through the message streaming system.
+// Returns an error if the publishing operation fails.
 func (sh *StreamHandler) Publish(topic string, data []byte) error {
 	pubSub := natsdriver.NewPubSub(sh.natsDriver)
 	err := pubSub.Publish(topic, data)
@@ -53,6 +58,8 @@ func (sh *StreamHandler) Publish(topic string, data []byte) error {
 	return nil
 }
 
+// Close terminates the connection to the NATS server and releases associated resources.
+// This method should be called when the StreamHandler is no longer needed.
 func (sh *StreamHandler) Close() {
 	sh.natsDriver.Close()
 }
