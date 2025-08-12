@@ -2,6 +2,7 @@ package natsdriver
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/nats-io/nats.go"
@@ -16,7 +17,7 @@ type NatsConnection struct {
 func NewNatsConnection(url string) (*NatsConnection, error) {
 	conn, err := nats.Connect(url)
 	if err != nil {
-		return nil, ErrInvalidUrl
+		return nil, fmt.Errorf("%w: %q: %v", ErrInvalidUrl, url, err)
 	}
 	return &NatsConnection{conn: conn}, nil
 }
