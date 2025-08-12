@@ -8,21 +8,15 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-const (
-	NATS_URL = "NATS_URL"
-)
-
 type StreamHandler struct {
 	natsDriver *natsdriver.NatsConnection
 }
 
-func NewStreamHandler() (*StreamHandler, error) {
-	//confManager, err := cfgmanager.NewConfigManager([]string{NATS_URL})
-	//if err != nil {
-	//	panic(err)
-	//}
-	//defer confManager.ClearVars()
-	natsUrl := os.Getenv(NATS_URL)
+func NewStreamHandler(url string) (*StreamHandler, error) {
+	natsUrl := os.Getenv(url)
+	if natsUrl == "" {
+		natsUrl = nats.DefaultURL
+	}
 
 	natsConnection, err := natsdriver.NewNatsConnection(natsUrl)
 	if err != nil {
