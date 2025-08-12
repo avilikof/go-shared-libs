@@ -14,7 +14,7 @@ Shared Go libraries extracted from monorepo for distributed microservices archit
 - `redpanda/` - Redpanda producer utilities
 
 ## Usage
-
+ 
 ```go
 import "github.com/avilikof/go-shared-libs/alerts"
 import "github.com/avilikof/go-shared-libs/logger"
